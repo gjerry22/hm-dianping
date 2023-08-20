@@ -74,6 +74,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
             return Result.fail("验证码错误！");
         }
         // 5.一致，根据手机号查询用户
+//        LambdaQueryWrapper<User> wrapper = new LambdaQueryWrapper<>();
+//        LambdaQueryWrapper<User> wrapper = Wrappers.<User>lambdaQuery();
+//        LambdaQueryWrapper<User> wrapper = Wrappers.lambdaQuery(User.class);
+//        wrapper.eq(User::getPhone, phone);
+//        User user = getBaseMapper().selectOne(wrapper);
+//        new LambdaQueryChainWrapper(getBaseMapper());
+//        ChainWrappers.lambdaQueryChain(getBaseMapper());
+//        lambdaQuery();
         User user = lambdaQuery().eq(User::getPhone, phone).one();
         // 6.判断用户是否存在
         if(user == null) {
