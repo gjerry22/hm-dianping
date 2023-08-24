@@ -108,9 +108,10 @@ public class CacheClient {
                     // 5.不存在，将""写入redis
                     if(r1 == null) {
                         stringRedisTemplate.opsForValue().set(key, "", RedisConstants.CACHE_NULL_TTL, TimeUnit.MINUTES);
+                    } else {
+                        // 6.存在，封装逻辑过期时间并写入redis
+                        this.setWithLogicalExpire(key, r1, time, unit);
                     }
-                    // 6.存在，封装逻辑过期时间并写入redis
-                    this.setWithLogicalExpire(key, r1, time, unit);
                 });
             } catch (Exception e) {
                 throw new RuntimeException(e);
